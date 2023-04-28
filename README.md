@@ -66,6 +66,14 @@ exports.handler = async (event) => {
   "detail": {}
 }
 ```
+正常に動作した場合、次のようなレスポンスが得られます。
+```text
+Response
+{
+  "statusCode": 200,
+  "body": "{\"userId\":1,\"id\":1,\"title\":\"sunt aut facere repellat provident occaecati excepturi optio reprehenderit\",\"body\":\"quia et suscipit\\nsuscipit recusandae consequuntur expedita et cum\\nreprehenderit molestiae ut ut quas totam\\nnostrum rerum est autem sunt rem eveniet architecto\"}"
+}
+```
 
 # VPC settings
 Lambdaから外部のwebAPIにリクエストを送信するだけの場合、デフォルトではVPCやセキュリティグループの設定は不要です。ただし、VPC内のリソースにアクセスする場合は必要になります。
