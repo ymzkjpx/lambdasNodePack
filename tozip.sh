@@ -3,12 +3,12 @@
 set -eu
 
 function Main(){
-  echo -e "makeing zip file...\r"
+  echo -e "making zip file...\r"
   tozip &
   show_progress $!
   wait "$!"
   echo -e "\033[31mlambdasNodePack.zip\033[0m"
-  exit 1
+  exit 0
 }
 
 function tozip(){
