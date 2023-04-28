@@ -3,28 +3,40 @@
 set -eu
 
 function Main(){
-  tozip
-}
-
-function tozip(){
-  echo "makeing zip file..."
-  zip -qr lambdasNodePack.zip node_modules/ &
-  show_progress "$!"
-  echo -e "finished. created: \033[31mlambdasNodePack.zip\033[0m"
+  echo -e "makeing zip file...\r"
+  tozip &
+  show_progress $!
+  wait "$!"
+  echo -e "\033[31mlambdasNodePack.zip\033[0m"
   exit 1
 }
 
-function show_progress() {
-  local -r delay='0.1'   # 進行状況の更新間隔（秒）
-  local -r char='/-\|'   # ローダーに使用する文字
+function tozip(){
+  sleep 1
+  zip -qr lambdasNodePack.zip node_modules/ &
+}
+
+
+function show_progress(){
+  local pid=$1
+  local delay=0.1
+  local spinstr='|/-\'
   local i=0
 
-  while [[ -e /proc/$1 ]]; do
-    i=$(( (i+1) %4 ))
-    printf "\r[%c] " "${char:$i:1}"
-    sleep "${delay}"
+  while [ "$(ps a | awk '{print $1}' | grep $pid)" ]; do
+    local temp=${spinstr#?}
+    printf "\r[%c] " "$spinstr"
+    local spinstr=$temp${spinstr%"$temp"}
+    sleep $delay
   done
-  printf "\r[%c] Done!\n" "${char:$i:1}"
+
+  wait "$pid"
+  local exit_code=$?
+  if [ $exit_code -eq 0 ]; then
+    printf "\r%s\n" "Done."
+  else
+    printf "\r%s\n" "Failed."
+  fi
 }
 
 Main
