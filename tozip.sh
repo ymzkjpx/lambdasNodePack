@@ -13,14 +13,13 @@ function Main(){
 
 function tozip(){
   sleep 1
-  cd lambdasNodePack/
+  cd nodejs/
   echo -e "npm install..."
   npm install > /dev/null 2>&1
   echo -e "zipping..."
   cd ../
-  zip -qr lambdasNodePack.zip lambdasNodePack/ &
+  zip -qr lambdasNodePack.zip nodejs/ &
 }
-
 
 function show_progress(){
   local pid=$1

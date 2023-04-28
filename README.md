@@ -8,7 +8,7 @@ AWSラムダLayerで使うNode.jsのライブラリをパッキングしまし�
 
 # Raw command
 ```bash
-zip -r lambdasNodePack.zip lambdasNodePack/
+zip -r lambdasNodePack.zip nodejs/
 ```
 
 # Add module
@@ -23,6 +23,8 @@ cd ../
 tozip.shと同じ階層に、lambdasNodePack.zipが生成されます。
 
 Layerｎ追加する際は、package.jsonも必要です。node_modulesとpackage.jsonが含まれるディレクトリごとzipにまとめます。
+
+また、zip後のファイル名は任意ですが、zipするファイル名は「nodejs」である必要があります。これはlambdaの仕様のためです。もし変更する場合は、AWSコンソールからpathの設定が必要になるため、特にこだわりがなければディレクトリ名を「nodejs」としておくことが無難でしょう。
 
 次に、生成したlambdasNodePack.zipをAWSラムダのLayerに追加します。
 LayerはAWSコンソールのLambda画面下部の「Layerの追加」から追加できます。
