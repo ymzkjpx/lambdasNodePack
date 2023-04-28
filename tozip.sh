@@ -19,7 +19,7 @@ function tozip(){
 
 function show_progress(){
   local pid=$1
-  local delay=0.1
+  local delay=0.01
   local spinstr='|/-\'
   local i=0
 
