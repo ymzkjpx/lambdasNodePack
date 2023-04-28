@@ -13,7 +13,12 @@ function Main(){
 
 function tozip(){
   sleep 1
-  zip -qr lambdasNodePack.zip node_modules/ &
+  cd lambdasNodePack/
+  echo -e "npm install..."
+  npm install > /dev/null 2>&1
+  echo -e "zipping..."
+  cd ../
+  zip -qr lambdasNodePack.zip lambdasNodePack/ &
 }
 
 
